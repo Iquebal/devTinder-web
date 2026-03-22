@@ -1,13 +1,13 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
-import { addFeed } from "../utils/feedSlice";
-import { useSelector, useDispatch } from "react-redux";
+import {BASE_URL} from "../utils/constants";
+import {useEffect} from "react";
+import {addFeed} from "../utils/feedSlice";
+import {useSelector, useDispatch} from "react-redux";
 import Usercard from "./UserCard";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const getFeed = async () => {
     if (feed?.length) return; // better check
@@ -26,7 +26,9 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
-
+  if (!feed) return;
+  if (feed.length <= 0)
+    return <h1 className="flex justify-center my-10">No new users found!</h1>;
   return (
     feed && (
       <div className="flex justify-center my-10">
